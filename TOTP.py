@@ -17,7 +17,8 @@ class HOTP:
                         pack('>Q', int(aligned_time)//30))  # this will NOT stop working in 2038
         start = ord(hmac[19:20]) & 0xF
         codeint = unpack('>I', hmac[start:start+4])[0] & 0x7fffffff
-        return str(codeint%1000000)
+        re = str(codeint%1000000)  
+        return '0'*(6-len(re)) + re
 
 if __name__ == "__main__":
     #  计算hmac密钥
